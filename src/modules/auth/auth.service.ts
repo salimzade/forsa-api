@@ -10,9 +10,7 @@ class AuthService {
   async register(email: string, password: string) {
     const canditate = await Auth.findOne({ email });
 
-    if (canditate) {
-      throw new Error('User with this email already exists');
-    }
+    if (canditate) throw new Error('User with this email already exists');
 
     const passwordHash = bcrypt.hashSync(password, 3);
     const activationLink = uuidv4();
@@ -25,7 +23,7 @@ class AuthService {
 
     const authDto = new AuthDto(user);
     const tokens = tokenService.generateToken({ userId: authDto.id });
-    
+
     await tokenService.saveToken(authDto.id, tokens.refreshToken);
 
     await User.create({ userId: authDto.id });
@@ -35,7 +33,7 @@ class AuthService {
         email: authDto.email,
         isActivated: authDto.isActivated
       },
-      ...tokens,
+      ...tokens
     };
   }
 
@@ -54,9 +52,9 @@ class AuthService {
 
     return {
       user: {
-        email: authDto.email,
+        email: authDto.email
       },
-      ...tokens,
+      ...tokens
     };
   }
 
@@ -89,9 +87,9 @@ class AuthService {
 
     return {
       user: {
-        email: authDto.email,
+        email: authDto.email
       },
-      ...tokens,
+      ...tokens
     };
   }
 
