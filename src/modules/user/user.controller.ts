@@ -3,7 +3,8 @@ import userService from './user.service';
 class UserController {
   async updateProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = (req as any).user.id;
+      const userId = (req as any).user.userId;
+      console.log('Received updateProfile request for userId:', userId);
 
       const profileData = {
         username: req.body.username,
@@ -26,7 +27,8 @@ class UserController {
 
   async getProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = req.body.id;
+      const userId = (req as any).user.userId;
+      console.log('Received getProfile request for userId:', userId);
       const profile = await userService.getProfile(userId);
       return res.json(profile);
     } catch (e) {

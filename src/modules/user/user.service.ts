@@ -1,22 +1,35 @@
 import { Auth } from '../auth/auth.model';
 import { User } from './user.model';
 
-class UserService {
-  async updateProfile(userId: string, profileData: any): Promise<any> {
-    const user = await Auth.findById(userId);
-    if (!user) throw new Error('User not found');
+interface UpdateProfileDto {
+  username?: string;
+  first_name?: string;
+  last_name?: string;
+  phone?: string;
+  company?: string;
+  country?: string;
+  city?: string;
+  address?: string;
+  postal_code?: string;
+}
 
-    const updatedUser = await User.findOneAndUpdate(
-      { authId: user._id },
+class UserService {
+  async updateProfile(userId: string, profileData: UpdateProfileDto) {
+    
+    const auth = await Auth.findById(userId);
+    if (!auth) throw new Error('User not found');
+
+    const updated = await User.findOneAndUpdate(
+      { userId: userId },
       { $set: profileData },
-      { new: true }
+      { new: true, upsert: true }
     );
 
-    return updatedUser;
+    return updated;
   }
 
   async getProfile(userId: string): Promise<any> {
-    const profile = await User.findOne({ authId: userId });
+    const profile = await User.findOne({ userId: userId });
     if (!profile) throw new Error('User not found');
     return profile;
   }
