@@ -14,4 +14,4 @@ const makeSchema = new Schema<IModel>({
   slug: { type: String, required: true, unique: true },
 });
 
-export const Make = model<IModel>('Make', makeSchema);
+export const Model = model<IModel>('Model', makeSchema);
