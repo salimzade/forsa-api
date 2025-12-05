@@ -33,6 +33,12 @@ class ModelsController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
+      const {
+        name,
+        makeId,
+        modelId,
+      } = req.body;
+      
     } catch (error) {
       next(error);
     }
