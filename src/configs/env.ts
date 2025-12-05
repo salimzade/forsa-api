@@ -9,8 +9,8 @@ export enum Env {
 
   JWT_ACCESS_SECRET = 'your_jwt_access_secret',
   JWT_REFRESH_SECRET = 'your_jwt_refresh_secret',
-  JWT_ACCESS_TOKEN_EXPIRES_IN = '15m',
-  JWT_REFRESH_TOKEN_EXPIRES_IN = '7d',
+  JWT_ACCESS_TOKEN_EXPIRES_IN = '1y',
+  JWT_REFRESH_TOKEN_EXPIRES_IN = '1y',
 
   MONGO_URI = 'mongodb://localhost:27017/forsa_db',
   MONGO_URI_TEST = 'mongodb://localhost:27017/forsa_db_test',
